@@ -7,6 +7,30 @@
 //   palindrome("abba") === true
 //   palindrome("abcdefg") === false
 
-function palindrome(str) {}
+function palindrome(str) {
+    console.log(str.split("").join("") )
+    console.log(str.split("").reverse().join("") )
+    //*first solution
+    // return (str === str.split("").reduce((rev,char)=>{
+    //     return rev = char +rev 
+    // }))
+    
 
+    //*Second solution
+    // let reversed=""
+    // for (let i = str.length-1; i >= 0; i--) {
+    //     reversed= reversed + str[i]
+        
+    // }
+    // console.log("here reversed", reversed)
+    // return reversed === str
+
+    //* third solution
+    // this method make double comparison so it´s not eficient but is a valid solution
+    return str.split("").every((char,i)=>{
+        return char === str[str.length-1-i]  
+    })
+}
+const str= "aba aba"
+console.log(palindrome(str))
 module.exports = palindrome;
