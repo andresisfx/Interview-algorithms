@@ -6,39 +6,58 @@
 // maxChar("apple 1231111") === "1"
 
 function maxChar(str) {
-    const keys= new Map()
-    for(let char of str){
+//     const map= new Map()
+//     for(let char of str){
 
-        if(keys.has(char)){
-            keys.set(char,keys.get(char)+1)
-        }else{
-            keys.set(char,1)
-        }
-    }
-    let maxValueArr= []
-    for(let [key,value] of keys.entries()){
-      maxValueArr.push(value)
-    }
+//         if(map.has(char)){
+//             map.set(char,map.get(char)+1)
+//         }else{
+//             map.set(char,1)
+//         }
+//     }
+//     let maxValueArr= [];
+//     for(let [key,value] of map.entries()){
+//       maxValueArr.push(value)
+//     }
 
-    const sortedArr= maxValueArr.sort((a,b)=>a-b);
+//     const sortedArr= maxValueArr.sort((a,b)=>a-b);
 
-    const maxNumberFound= sortedArr[sortedArr.length-1]
+//     const maxNumberFound= sortedArr[sortedArr.length-1]
 
 
-   const findKey=(value)=>{
+//    const findKey=(value)=>{
 
     
-      for(let [key,val] of keys.entries()){
+//       for(let [key,val] of map.entries()){
 
-        if(val===value){
-            return key
-        }
-      }
+//         if(val===value){
+//             return key
+//         }
+//       }
       
-   }
-   return findKey(maxNumberFound)
+//    }
+//    return findKey(maxNumberFound)
+
+ const map = {};
+ let max=0 ;
+ let maxChar;
+ for ( let char of str){
+    if(map[char]){
+        map[char]=map[char]+1
+    }else{
+        map[char]=1
+    }
+ }
   
+ for(let key in map){
+    if(map[key]>max){
+        max=map[key];
+        maxChar=key
+    }
+    // console.log(max,maxChar)
+ }
+ return maxChar
 }
-console.log(maxChar("eeoufddfg22222222222"))
+console.log(maxChar("eeoufddfg22565555"))
 
 module.exports = maxChar;
