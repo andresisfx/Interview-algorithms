@@ -9,33 +9,31 @@
 // chunk([1, 2, 3, 4, 5], 10) --> [[ 1, 2, 3, 4, 5]]
 
 function chunk(array, size) {
-    
-
-let newArr=[]
-const numberOfElements = Math.ceil(array.length/size)+1
-console.log(numberOfElements)
-    recurringArray(array)
-   function recurringArray(array){
-
-        if(newArr.length>=size){
-            return 
-        }else{
-
-        let  minArr= [];
-        for(let i =0;i<numberOfElements;i++){
-           
-                minArr.push(array[i])
-           
-              
+   let resultArr=[]
+   recurringArr(array)
+   function recurringArr(arr){
+      let newArr=[]
+      if(arr.length===0){
+        return
+      }else{
+            for (let i = 0; i < size; i++) {
+                  if(arr[i]===undefined){
+                    break
+                  }else{
+                    console.log("aquí arr[i]",arr[i])
+                    newArr.push(arr[i])
+                  }
+                
+                
+            }
+            resultArr.push(newArr)
+            
         }
-        
-            newArr.push(minArr);
-            recurringArray(array.slice(numberOfElements-1,array.length))
-          console.log("aqui",array.slice(numberOfElements-1,array.length))
-        }
-    }      
-    return newArr
+        console.log("Aqui new arr",newArr)
+        recurringArr(arr.slice(newArr.length,arr.length+1))
+   }
+  return resultArr
 }
 
-console.log(chunk([2,5,8,9,6,3,2,5,8,7,65,6,5,8,6,0],5))
+console.log(chunk([2,5,8,9,6,3,2,5,8,7,65,6,5,8,6,0],3))
 module.exports = chunk;
