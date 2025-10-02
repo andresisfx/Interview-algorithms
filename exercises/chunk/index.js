@@ -9,31 +9,42 @@
 // chunk([1, 2, 3, 4, 5], 10) --> [[ 1, 2, 3, 4, 5]]
 
 function chunk(array, size) {
-   let resultArr=[]
-   recurringArr(array)
-   function recurringArr(arr){
-      let newArr=[]
-      if(arr.length===0){
-        return
-      }else{
-            for (let i = 0; i < size; i++) {
-                  if(arr[i]===undefined){
-                    break
-                  }else{
-                    console.log("aquí arr[i]",arr[i])
-                    newArr.push(arr[i])
-                  }
+  //  let resultArr=[]
+  //  recurringArr(array)
+  //  function recurringArr(arr){
+  //     let newArr=[]
+  //     if(arr.length===0){
+  //       return
+  //     }else{
+  //           for (let i = 0; i < size; i++) {
+  //                 if(arr[i]===undefined){
+  //                   break
+  //                 }else{
+  //                   console.log("aquí arr[i]",arr[i])
+  //                   newArr.push(arr[i])
+  //                 }
                 
                 
-            }
-            resultArr.push(newArr)
+  //           }
+  //           resultArr.push(newArr)
             
-        }
-        console.log("Aqui new arr",newArr)
-        recurringArr(arr.slice(newArr.length,arr.length+1))
+  //       }
+  //       console.log("Aqui new arr",newArr)
+  //       recurringArr(arr.slice(newArr.length,arr.length+1))
+  //  }
+  // return resultArr
+
+   const chunked=[];
+   for(let element of array){
+      const last= chunked[chunked.length-1]
+      if(!last||last.length===size){
+         chunked.push([element])
+      }else{
+        last.push(element)
+      }
    }
-  return resultArr
+   return chunked
 }
 
-console.log(chunk([2,5,8,9,6,3,2,5,8,7,65,6,5,8,6,0],3))
+console.log(chunk([2,5,8,9,6,3,2,5,8,7,65,6,5,8,6,0],5))
 module.exports = chunk;
