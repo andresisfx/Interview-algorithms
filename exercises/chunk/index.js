@@ -34,17 +34,30 @@ function chunk(array, size) {
   //  }
   // return resultArr
 
-   const chunked=[];
-   for(let element of array){
-      const last= chunked[chunked.length-1]
-      if(!last||last.length===size){
-         chunked.push([element])
-      }else{
-        last.push(element)
-      }
-   }
-   return chunked
+
+  //*-----------------------SECOND SOLUTION---------------------
+  //  const chunked=[];
+  //  for(let element of array){
+  //     const last= chunked[chunked.length-1]
+  //     if(!last||last.length===size){
+  //        chunked.push([element])
+  //     }else{
+  //       last.push(element)
+  //     }
+  //  }
+  //  return chunked
+
+  //*-----------------------THIRD SOLUTION---------------------
+
+  const chunk= []
+  let index = 0;
+
+  while (index<array.length) {
+    chunk.push(array.slice(index, index + size))
+    index += size
+  }
+  return chunk
 }
 
-console.log(chunk([2,5,8,9,6,3,2,5,8,7,65,6,5,8,6,0],5))
+console.log(chunk([2,5,8,9,6,3,2,5,8,7,65,6,5,8,6,0],20))
 module.exports = chunk;
