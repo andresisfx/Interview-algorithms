@@ -9,14 +9,17 @@
 //   anagrams('Hi there', 'Bye there') --> False
 
 function anagrams(stringA, stringB) {
+
     const cleanedStr1=stringA.replace(/[^a-zA-Z0-9 ]/g,"").replace(/\s+/g,"").toLowerCase();
     const cleanedStr2=stringB.replace(/[^a-zA-Z0-9 ]/g,"").replace(/\s+/g,"").toLowerCase();
-
+     if(cleanedStr1===cleanedStr2){
+        return false
+     }
     const mapA= new Map();
     const mapB= new Map();
     
     for(let char of cleanedStr1){
-       if(cleanedStr2.includes(char)){
+      
           if(!mapA.get(char)){
 
               mapA.set(char,1)
@@ -24,12 +27,10 @@ function anagrams(stringA, stringB) {
               mapA.set(char,mapA.get(char)+1)
 
           }
-       }else {
-        continue
-       }
+
     }
     for(let char of cleanedStr2){
-       if(cleanedStr1.includes(char)){
+       
           if(!mapB.get(char)){
 
               mapB.set(char,1)
@@ -37,27 +38,24 @@ function anagrams(stringA, stringB) {
               mapB.set(char,mapB.get(char)+1)
 
           }
-       }else {
-        continue
-       }
+
     }
     console.log(mapA)
     console.log(mapB)
-    let verify
+    
     for(let [key,value] of mapA.entries()){
-       if(mapB.get(key)===mapA.get(key)){
-        verify= true
-       }else {
-        verify=false
-        
-       }
-       if(!verify){
-        break
+       
+       if(mapA.size!==mapB.size){
+        return false
+       } 
+       if(mapB.get(key)||mapA.get(key)!==value){
+        return false
        }
     }
-    return verify
+    return true
 }
 console.log(anagrams('rail safety', 'fairy tales')) 
 console.log( anagrams('RAIL! SAFETY!', 'fairy tales')) 
 console.log(anagrams('Hi there', 'Bye there')) 
+console.log(anagrams('hello', '')) 
 module.exports = anagrams;
