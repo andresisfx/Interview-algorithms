@@ -11,6 +11,7 @@
 function anagrams(stringA, stringB) {
   const aCharMap=buildCharMap(stringA)
   const bCharMap=buildCharMap(stringB)
+  console.log(aCharMap)
    
   if(Object.keys(aCharMap).length !== Object.keys(bCharMap).length ){
     return false
@@ -26,7 +27,7 @@ function anagrams(stringA, stringB) {
 function buildCharMap(str){
     const mapChar ={};
 
-    for(let char of str.replace(/[^\w]/g).toLowerCase()){  // Alt + 94 para escribir "^""
+    for(let char of str.replace(/[^\w]/g).toLowerCase()){  // Alt + 94 para escribir "^"
         mapChar[char]=mapChar[char] + 1 ||1
     }
     return mapChar
