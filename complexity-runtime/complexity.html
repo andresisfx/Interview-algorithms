@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teoría de Complejidades Big O</title>
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: #0d1117;
+    color: #f0f6fc;
+    line-height: 1.6;
+    padding: 40px;
+  }
+  h1, h2 {
+    color: #58a6ff;
+  }
+  pre {
+    background-color: #161b22;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  code {
+    color: #79c0ff;
+  }
+  section {
+    margin-bottom: 40px;
+  }
+  .example {
+    background-color: #1c2128;
+    border-left: 4px solid #238636;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 6px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Complejidades Temporales Big O</h1>
+
+<p>
+La notación Big O describe cómo crece el tiempo o el número de operaciones de un algoritmo conforme aumenta el tamaño de los datos (<code>n</code>).
+Nos permite comparar la eficiencia de diferentes algoritmos sin importar el hardware o el lenguaje de programación.
+</p>
+
+<hr>
+
+<section>
+<h2>O(1) — Tiempo constante</h2>
+<p>
+El tiempo de ejecución **no depende del tamaño de los datos**.  
+No importa si tienes 10 o 1 millón de elementos, el algoritmo hace el mismo número de operaciones.
+</p>
+
+<div class="example">
+<strong>Ejemplo 1:</strong> Acceder al primer elemento de un array.
+<pre><code>const arr = [10, 20, 30, 40];
+console.log(arr[0]); // Siempre una sola operación
+</code></pre>
+<p>✔️ Solo lee una posición en memoria, sin importar el tamaño del array.</p>
+</div>
+
+<div class="example">
+<strong>Ejemplo 2:</strong> Comprobar si un número es par o impar.
+<pre><code>function esPar(num) {
+  return num % 2 === 0;
+}
+</code></pre>
+<p>✔️ Solo realiza una división y una comparación. La ejecución es siempre constante.</p>
+</div>
+</section>
+
+<hr>
+
+<section>
+<h2>O(log n) — Tiempo logarítmico</h2>
+<p>
+El tiempo crece lentamente a medida que aumenta <code>n</code>.  
+Se suele obtener al **dividir el problema en partes cada vez más pequeñas**, como ocurre en una búsqueda binaria.
+</p>
+
+<div class="example">
+<strong>Ejemplo 1:</strong> Búsqueda binaria en un array ordenado.
+<pre><code>function busquedaBinaria(arr, valor) {
+  let inicio = 0, fin = arr.length - 1;
+  while (inicio <= fin) {
+    const medio = Math.floor((inicio + fin) / 2);
+    if (arr[medio] === valor) return medio;
+    if (arr[medio] < valor) inicio = medio + 1;
+    else fin = medio - 1;
+  }
+  return -1;
+}
+</code></pre>
+<p>✔️ Cada iteración reduce el espacio de búsqueda a la mitad. Si hay 1024 elementos, solo necesita 10 pasos.</p>
+</div>
+
+<div class="example">
+<strong>Ejemplo 2:</strong> Encontrar un valor en un árbol binario equilibrado.
+<pre><code>function buscarNodo(arbol, valor) {
+  if (!arbol) return false;
+  if (arbol.valor === valor) return true;
+  if (valor < arbol.valor) return buscarNodo(arbol.izq, valor);
+  return buscarNodo(arbol.der, valor);
+}
+</code></pre>
+<p>✔️ Se recorre solo una rama del árbol (no todo), reduciendo el número de comparaciones en cada paso.</p>
+</div>
+</section>
+
+<hr>
+
+<section>
+<h2>O(n) — Tiempo lineal</h2>
+<p>
+El tiempo crece **proporcionalmente al tamaño de los datos**.  
+Si duplicas la cantidad de elementos, el tiempo también se duplica.
+</p>
+
+<div class="example">
+<strong>Ejemplo 1:</strong> Recorrer un array para imprimir cada elemento.
+<pre><code>function imprimir(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i]);
+  }
+}
+</code></pre>
+<p>✔️ Se ejecuta una vez por cada elemento del array.</p>
+</div>
+
+<div class="example">
+<strong>Ejemplo 2:</strong> Calcular la suma de todos los elementos.
+<pre><code>function sumar(arr) {
+  let total = 0;
+  for (let num of arr) total += num;
+  return total;
+}
+</code></pre>
+<p>✔️ También necesita recorrer todos los elementos una sola vez.</p>
+</div>
+</section>
+
+<hr>
+
+<section>
+<h2>O(n log n) — Tiempo cuasilineal</h2>
+<p>
+Aparece en algoritmos que combinan **división y recorrido parcial**, como los de ordenamiento eficientes.
+Es más rápido que O(n²), pero más lento que O(n).
+</p>
+
+<div class="example">
+<strong>Ejemplo 1:</strong> Merge Sort (ordenamiento por mezcla).
+<pre><code>function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+  const medio = Math.floor(arr.length / 2);
+  const izq = mergeSort(arr.slice(0, medio));
+  const der = mergeSort(arr.slice(medio));
+  return merge(izq, der);
+}
+</code></pre>
+<p>✔️ Divide el array en mitades recursivamente (log n) y combina (n) → total: n log n.</p>
+</div>
+
+<div class="example">
+<strong>Ejemplo 2:</strong> Quick Sort promedio.
+<pre><code>function quickSort(arr) {
+  if (arr.length <= 1) return arr;
+  const pivote = arr[0];
+  const menores = arr.slice(1).filter(x => x < pivote);
+  const mayores = arr.slice(1).filter(x => x >= pivote);
+  return [...quickSort(menores), pivote, ...quickSort(mayores)];
+}
+</code></pre>
+<p>✔️ Cada llamada recursiva divide los datos y los procesa parcialmente.</p>
+</div>
+</section>
+
+<hr>
+
+<section>
+<h2>O(n²) — Tiempo cuadrático</h2>
+<p>
+El tiempo crece con el cuadrado del tamaño de los datos.  
+Sucede con **bucles anidados**, donde cada elemento se compara con todos los demás.
+</p>
+
+<div class="example">
+<strong>Ejemplo 1:</strong> Comparar todos los pares de elementos.
+<pre><code>function compararTodos(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      console.log(arr[i], arr[j]);
+    }
+  }
+}
+</code></pre>
+<p>✔️ Si hay 10 elementos, se hacen 100 comparaciones (10 × 10).</p>
+</div>
+
+<div class="example">
+<strong>Ejemplo 2:</strong> Ordenamiento burbuja (Bubble Sort).
+<pre><code>function bubbleSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
+  return arr;
+}
+</code></pre>
+<p>✔️ Cada pasada compara y puede intercambiar muchos pares → n × n.</p>
+</div>
+</section>
+
+<hr>
+
+<section>
+<h2>O(2ⁿ) — Tiempo exponencial</h2>
+<p>
+Cada nuevo elemento **duplica el trabajo necesario**.  
+Común en problemas que prueban todas las combinaciones posibles.
+</p>
+
+<div class="example">
+<strong>Ejemplo 1:</strong> Fibonacci recursivo simple.
+<pre><code>function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+</code></pre>
+<p>✔️ Cada llamada genera dos nuevas llamadas → crecimiento exponencial.</p>
+</div>
+
+<div class="example">
+<strong>Ejemplo 2:</strong> Generar todas las combinaciones posibles de un conjunto.
+<pre><code>function combinaciones(str) {
+  if (str.length === 0) return [''];
+  const resto = combinaciones(str.slice(1));
+  return resto.flatMap(x => [x, str[0] + x]);
+}
+</code></pre>
+<p>✔️ Por cada carácter, se generan el doble de combinaciones.</p>
+</div>
+</section>
+
+<hr>
+
+<section>
+<h2>O(n!) — Tiempo factorial</h2>
+<p>
+Aumenta de manera **extremadamente rápida**.  
+Se da en algoritmos que prueban **todas las permutaciones** posibles de los datos.
+</p>
+
+<div class="example">
+<strong>Ejemplo 1:</strong> Generar todas las permutaciones.
+<pre><code>function permutar(arr) {
+  if (arr.length <= 1) return [arr];
+  const resultado = [];
+  for (let i = 0; i < arr.length; i++) {
+    const resto = [...arr.slice(0, i), ...arr.slice(i + 1)];
+    for (let perm of permutar(resto)) {
+      resultado.push([arr[i], ...perm]);
+    }
+  }
+  return resultado;
+}
+</code></pre>
+<p>✔️ Cada nuevo elemento multiplica exponencialmente las combinaciones posibles.</p>
+</div>
+
+<div class="example">
+<strong>Ejemplo 2:</strong> Resolver el problema del viajero (TSP) por fuerza bruta.
+<pre><code>// Se prueban todas las rutas posibles entre ciudades.
+function tsp(ciudades) {
+  const rutas = permutar(ciudades);
+  // se calcula la distancia de cada ruta...
+}
+</code></pre>
+<p>✔️ Si hay 6 ciudades, hay 720 rutas posibles (6!).</p>
+</div>
+</section>
+
+<hr>
+
+<p><strong>Conclusión:</strong>  
+La elección del algoritmo correcto puede ser la diferencia entre un programa que tarda milisegundos o horas en ejecutarse.
+</p>
+
+</body>
+</html>
