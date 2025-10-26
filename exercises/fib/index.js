@@ -8,6 +8,31 @@
 // Example:
 //   fib(4) === 3
 
-function fib(n) {}
+function fib(n , arr=[0,1]) {
+    // let arr=[0]
+    // for (let i = 0; i <= n ;i++) {
+    //     let count=0
+    //     let next= arr[i-1]?arr[i-1] + arr[i]:1
+    //     arr.push(next)
+        
+
+    // }
+    // return arr[n]
+
+    //*rRecursion solution
+    
+    if(arr.length > n){
+        return 
+    }else{
+        const newFib= n > 1?arr[arr.length-1]+arr[arr.length-2]:1
+        arr.push(newFib)
+       fib(n,arr)
+    }
+
+    
+    return arr[n]
+}
+
+console.log(fib(6))
 
 module.exports = fib;
