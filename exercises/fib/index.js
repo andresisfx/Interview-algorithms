@@ -8,7 +8,7 @@
 // Example:
 //   fib(4) === 3
 
-function fib(n , arr=[0,1]) {
+// function fib(n , arr=[0,1]) {
     // let arr=[0]
     // for (let i = 0; i <= n ;i++) {
     //     let count=0
@@ -37,13 +37,41 @@ function fib(n , arr=[0,1]) {
     // return arr[n]
 
     //*Short solution 
-    if(n<2){
-        return n
+    // if(n<2){
+    //     return n
+    // }
+
+    // return fib(n-1)+ fib(n-2)
+// }
+    //*Memoization solution 
+   function memoize(fn){
+     
+    const cache={}
+    return function (...args){
+       if(cache[args]){
+        return cache[args]
+       }
+       const result= fn.apply(this,args);
+       cache[args]=result
+
+       return result 
     }
 
-    return fib(n-1)+ fib(n-2)
-}
+      
+    }
+    
+    function slowFib (n){
 
-console.log(fib(6))
+        if(n<2){
+            return n
+        }
+         //! here we are calling the memoized version
+        return fib(n-1)+ fib(n-2)
+    }
+     
+    const fib= memoize(slowFib)
+
+
+console.log(fib(1))
 
 module.exports = fib;
