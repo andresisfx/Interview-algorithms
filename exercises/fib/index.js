@@ -20,17 +20,28 @@ function fib(n , arr=[0,1]) {
     // return arr[n]
 
     //*rRecursion solution
-    
-    if(arr.length > n){
-        return 
-    }else{
-        const newFib= n > 1?arr[arr.length-1]+arr[arr.length-2]:1
-        arr.push(newFib)
-       fib(n,arr)
-    }
+    // if(n<2){
+    //     return n
+    // }
+    // else if(arr.length > n){
+    //     console.log("entreé al if")
+    //     return 
+    // }else{
+    //     const newFib= n >= 1?arr[arr.length-1]+arr[arr.length-2]:1
+    //     console.log("aquí new",newFib)
+    //     arr.push(newFib)
+    //    fib(n,arr)
+    // }
 
     
-    return arr[n]
+    // return arr[n]
+
+    //*Short solution 
+    if(n<2){
+        return n
+    }
+
+    return fib(n-1)+ fib(n-2)
 }
 
 console.log(fib(6))
