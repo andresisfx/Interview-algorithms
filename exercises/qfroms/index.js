@@ -27,16 +27,26 @@ class Queue {
       this.stack1.push(record);
     }
     remove(){
-        if(!this.stack2.peek()){
-              while(this.stack1.peek()){
-               this.stack2.push(this.stack1.pop());
+        // if(!this.stack2.peek()){
+        //       while(this.stack1.peek()){
+        //        this.stack2.push(this.stack1.pop());
               
-              }
-              return this.stack2.pop()
-        }else{
-            return this.stack2.pop()
-        }
+        //       }
+        //       return this.stack2.pop()
+        // }else{
+        //     return this.stack2.pop()
+        // }
 
+        //*second alternative
+        while (this.stack1.peek()) {
+            this.stack2.push(this.stack1.pop());
+        }
+        const lastEWlement = this.stack2.pop() ;
+
+        while (this.stack2.peek()) {
+            this.stack1.push(this.stack2.pop());
+        }
+        return lastEWlement
 
     }
     peek(){
