@@ -163,6 +163,23 @@ class LinkedList {
       }
     }
 
+    forEach(fn){
+      if(!this.head){
+        return null
+      }
+      let current=this.head;
+      while(current){
+        if(!current)return
+        if(typeof(fn)!=="function"){
+          return "invalid parameter"
+        }
+        fn(current)
+        current=current.next
+      }
+      
+    }
+    
+
 }
 class Node {
     constructor(val, next=null){
