@@ -178,6 +178,23 @@ class LinkedList {
       }
       
     }
+
+    [Symbol.iterator](){
+      
+      let current= this.head;
+
+      return {
+        next(){
+          
+          if(current){
+            const val = current
+            current= current.next;
+            return {value:val, done:false}
+          }
+          return {done:true}
+        }
+      }
+    }
     
 
 }
