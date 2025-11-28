@@ -23,12 +23,33 @@ class Node {
         this.children= this.children.filter(node=>node.data!==data)
         
     }
+    
 }
 
 class Tree {
     constructor(){
         this.root=null;
     }
+    traverseBF(fn){
+      const queue= [this.root];
+      while (queue.length) {
+        const node = queue.shift();
+        fn(node)
+        queue.push(...node.children)
+      }
+    }
+    traverseDF(fn){
+      const stack= [this.root];
+      
+      while (stack.length) {
+        const node = stack.shift()
+        fn(node)
+        stack.unshift(...node.children)
+      }
+    }
+    
+
+
 }
 
 module.exports = { Tree, Node };
